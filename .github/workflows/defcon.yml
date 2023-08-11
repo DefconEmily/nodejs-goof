@@ -3,11 +3,19 @@ name: POD
 on: [push]
 
 jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   zap_scan:
     permissions:
       issues: write
     runs-on: ubuntu-latest
-    name: Scan the webapplication
+    name: ZAP Scan
     steps:
       - name: Checkout
         uses: actions/checkout@v2
